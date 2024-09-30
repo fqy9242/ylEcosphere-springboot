@@ -1,0 +1,17 @@
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+spring:
+  profiles:
+    active: dev
+  datasource:
+    driver-class-name: ${yl-ecosphere.datasource.driver-class-name}
+    url: jdbc:mysql://${yl-ecosphere.datasource.host}:${yl-ecosphere.datasource.port}/${yl-ecosphere.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+    username: ${yl-ecosphere.datasource.username}
+    password: ${yl-ecosphere.datasource.password}
+yl-ecosphere:
+  jwt:
+    # 设置jwt加密时所用的秘钥
+    secret-key: qht123
+    # 设置jwt过期时间
+    ttl-millis: 7200000

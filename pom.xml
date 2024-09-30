@@ -26,6 +26,10 @@
         <lombok.version>1.18.34</lombok.version>
         <spring-boot>3.3.4</spring-boot>
         <lombok.version>1.18.34</lombok.version>
+        <spring.mybatis.version>3.0.3</spring.mybatis.version>
+        <mysql.version>8.2.0</mysql.version>
+        <jjwt.version>0.9.1</jjwt.version>
+        <jaxb.version>2.3.1</jaxb.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -44,6 +48,26 @@
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${spring.mybatis.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.mysql</groupId>
+                <artifactId>mysql-connector-j</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.xml.bind</groupId>
+                <artifactId>jaxb-api</artifactId>
+                <version>${jaxb.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
