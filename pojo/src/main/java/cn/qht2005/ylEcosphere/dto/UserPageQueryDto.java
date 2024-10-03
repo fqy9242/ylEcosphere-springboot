@@ -13,6 +13,8 @@ public class UserPageQueryDto {
 	private Integer status;
 	// 手机号
 	private String phone;
+	// 用户类型id
+	private Integer roleId;
 	// 页码
 	private int page;
 	// 每页记录数

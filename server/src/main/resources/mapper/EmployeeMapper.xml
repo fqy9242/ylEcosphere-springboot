@@ -7,8 +7,9 @@
         select * from users
         <where>
             <if test="username != null and username != ''">and username like concat('%', #{username}, '%')</if>
-            <if test="phone != null and phone != ''">and phone like contact('%', #{phone}, '%')</if>
+            <if test="phone != null and phone != ''">and phone like concat('%', #{phone}, '%')</if>
             <if test="status != null and status != - 1">and user_status = #{status}</if>
+            <if test="role_id != null">role_id = #{roleId}</if>
         </where>
         order by create_time desc
     </select>
