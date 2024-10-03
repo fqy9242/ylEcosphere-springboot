@@ -1,6 +1,5 @@
 package cn.qht2005.ylEcosphere.entry;
 
-import cn.qht2005.ylEcosphere.constant.UserStatusConstant;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
