@@ -1,7 +1,10 @@
 package cn.qht2005.ylEcosphere.mapper;
 
 import cn.qht2005.ylEcosphere.dto.UserLoginDto;
+import cn.qht2005.ylEcosphere.dto.UserPageQueryDto;
 import cn.qht2005.ylEcosphere.entry.User;
+import cn.qht2005.ylEcosphere.vo.UserLoginVo;
+import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -14,4 +17,11 @@ public interface UserMapper {
 	 */
 	@Select("select * from users where username = #{username} and password = #{password}")
 	User selectByUsernameAndPassword(UserLoginDto loginDto);
+
+	/**
+	 *  分页查询
+	 * @param userPageQueryDto
+	 * @return
+	 */
+	Page<User> pageQuery(UserPageQueryDto userPageQueryDto);
 }

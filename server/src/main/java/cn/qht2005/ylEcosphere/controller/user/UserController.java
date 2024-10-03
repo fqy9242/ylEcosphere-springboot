@@ -1,15 +1,14 @@
 package cn.qht2005.ylEcosphere.controller.user;
 
 import cn.qht2005.ylEcosphere.dto.UserLoginDto;
+import cn.qht2005.ylEcosphere.dto.UserPageQueryDto;
+import cn.qht2005.ylEcosphere.result.PageResult;
 import cn.qht2005.ylEcosphere.result.Result;
 import cn.qht2005.ylEcosphere.service.UserService;
 import cn.qht2005.ylEcosphere.vo.UserLoginVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Slf4j
@@ -26,5 +25,17 @@ public class UserController {
 		log.info("用户登录:{}", userLoginDto);
 		UserLoginVo userLoginVo = userService.login(userLoginDto);
 		return Result.success(userLoginVo);
+	}
+
+	/**
+	 *  员工分页查询
+	 * @param userPageQueryDto
+	 * @return
+	 */
+	@GetMapping("/page")
+	public  Result<PageResult> list(UserPageQueryDto userPageQueryDto) {
+		log.info("员工分页查询:{}", userPageQueryDto);
+		PageResult list = userService.pageQuery(userPageQueryDto);
+		return Result.success(list);
 	}
 }

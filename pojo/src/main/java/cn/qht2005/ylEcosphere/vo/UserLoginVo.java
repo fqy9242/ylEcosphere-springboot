@@ -17,8 +17,8 @@ public class UserLoginVo {
 	private Long id;
 	// 用户名
 	private String username;
-	// 角色类型id
-	private Integer roleId;
+	// 角色类型
+	private String roleName;
 	// 手机号
 	private String phone;
 	// 邮箱

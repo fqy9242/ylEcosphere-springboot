@@ -1,27 +1,22 @@
 package cn.qht2005.ylEcosphere.service.impl;
 import cn.qht2005.ylEcosphere.dto.UserLoginDto;
-import cn.qht2005.ylEcosphere.dto.UserPageQueryDto;
 import cn.qht2005.ylEcosphere.entry.User;
 import cn.qht2005.ylEcosphere.exception.LoginFailedException;
 import cn.qht2005.ylEcosphere.mapper.RoleMapper;
 import cn.qht2005.ylEcosphere.mapper.UserMapper;
 import cn.qht2005.ylEcosphere.properties.JwtProperties;
-import cn.qht2005.ylEcosphere.result.PageResult;
-import cn.qht2005.ylEcosphere.service.UserService;
+import cn.qht2005.ylEcosphere.service.AdminService;
 import cn.qht2005.ylEcosphere.utils.JwtUtil;
 import cn.qht2005.ylEcosphere.vo.UserLoginVo;
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class AdminServiceImpl implements AdminService {
 	@Autowired
 	private UserMapper userMapper;
 	@Autowired
@@ -42,6 +37,9 @@ public class UserServiceImpl implements UserService {
 		}
 		// 获取用户类型
 		String roleName = roleMapper.selectRoleNameById(user.getRoleId());
+		if (! "管理员".equals(roleName)) {
+			throw new LoginFailedException("仅允许管理员登录！");
+		}
 		Map<String, Object> claim = new HashMap<>();
 		claim.put("id", user.getUsername());
 		// 生成令牌
@@ -52,21 +50,5 @@ public class UserServiceImpl implements UserService {
 		BeanUtils.copyProperties(user, userLoginVo);
 		userLoginVo.setToken(token);
 		return userLoginVo;
-	}
-
-	/**
-	 * 分页查询用户数据
-	 *
-	 * @param userPageQueryDto
-	 * @return
-	 */
-	@Override
-	public PageResult pageQuery(UserPageQueryDto userPageQueryDto) {
-		// 分页查询
-		PageHelper.startPage(userPageQueryDto.getPage(), userPageQueryDto.getPageSize());
-		Page<User> page = userMapper.pageQuery(userPageQueryDto);
-		long total = page.getTotal();
-		List<User> pageResult = page.getResult();
-		return new PageResult(total, pageResult);
 	}
 }

@@ -11,6 +11,10 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
+//	// 正常
+//	private static final Integer  NORMAL = 1;
+//	// 异常
+//	private static final Integer  UNUSUAL = 0;
 	// 主键
 	private Long id;
 	// 用户名
@@ -26,7 +30,7 @@ public class User {
 	// 头像链接
 	private String picture;
 	// 账号状态
-	private UserStatusConstant status;
+	private Integer userStatus;
 	// 创建时间
 	private LocalDateTime createTime;
 	//更新时间
