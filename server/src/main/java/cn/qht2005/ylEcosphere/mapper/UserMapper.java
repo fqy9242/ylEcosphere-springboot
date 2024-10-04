@@ -3,7 +3,6 @@ package cn.qht2005.ylEcosphere.mapper;
 import cn.qht2005.ylEcosphere.dto.UserLoginDto;
 import cn.qht2005.ylEcosphere.dto.UserPageQueryDto;
 import cn.qht2005.ylEcosphere.entry.User;
-import cn.qht2005.ylEcosphere.vo.UserLoginVo;
 import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
