@@ -19,4 +19,11 @@ public interface UserService {
 	 * @return
 	 */
 	PageResult pageQuery(UserPageQueryDto userPageQueryDto);
+
+	/**
+	 *  封禁用户或者解封用户
+	 * @param id
+	 * @param status 将要修改成的状态 1.正常 0.封号
+	 */
+	void modifyUserStatus(Long id, Integer status);
 }

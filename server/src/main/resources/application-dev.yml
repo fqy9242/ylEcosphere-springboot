@@ -2,7 +2,7 @@ yl-ecosphere:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     host: localhost #140.246.119.80
-    port: 3306
+    port: 3306 # 这里指的是数据库的端口号
     database: yl_Ecosphere
     username: root
     password: 123456

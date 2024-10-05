@@ -23,4 +23,10 @@ public interface UserMapper {
 	 * @return
 	 */
 	Page<User> pageQuery(UserPageQueryDto userPageQueryDto);
+
+	/**
+	 *  修改用户信息
+	 * @param user
+	 */
+	void update(User user);
 }

@@ -16,6 +16,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,5 +69,20 @@ public class UserServiceImpl implements UserService {
 		long total = page.getTotal();
 		List<User> pageResult = page.getResult();
 		return new PageResult(total, pageResult);
+	}
+
+	/**
+	 * 封禁用户或者解封用户
+	 *
+	 * @param id
+	 * @param status 将要修改成的状态 1.正常 0.封号
+	 */
+	@Override
+	public void modifyUserStatus(Long id, Integer status) {
+		User user = new User();
+		user.setId(id);
+		user.setUserStatus(status);
+		user.setUpdateTime(LocalDateTime.now());
+		userMapper.update(user);
 	}
 }
