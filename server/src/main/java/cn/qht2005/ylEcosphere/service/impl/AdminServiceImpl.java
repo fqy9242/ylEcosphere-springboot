@@ -73,8 +73,10 @@ public class AdminServiceImpl implements AdminService {
 		if (user == null || user.getRoleId() != RoleIdConstant.admin) {
 			throw new AccountNotExistException();
 		}
+		// 将传进来的原密码进行加密
+		String currentPassword = DigestUtils.md5DigestAsHex(userUpdatePasswordDto.getCurrentPassword().getBytes());
 		// 判断原密码是否正确
-		if (!Objects.equals(user.getPassword(), userUpdatePasswordDto.getCurrentPassword())) {
+		if (!Objects.equals(user.getPassword(), currentPassword)) {
 			// 原密码不正确
 			throw new BaseException(MessageConstant.PASSWORD_INCORRECT);
 		}
