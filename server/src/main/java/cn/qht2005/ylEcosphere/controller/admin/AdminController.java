@@ -1,15 +1,13 @@
 package cn.qht2005.ylEcosphere.controller.admin;
 
 import cn.qht2005.ylEcosphere.dto.UserLoginDto;
+import cn.qht2005.ylEcosphere.dto.UserUpdatePasswordDto;
 import cn.qht2005.ylEcosphere.result.Result;
 import cn.qht2005.ylEcosphere.service.AdminService;
 import cn.qht2005.ylEcosphere.vo.UserLoginVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Slf4j
@@ -26,5 +24,15 @@ public class AdminController {
 		log.info("管理员登录:{}", userLoginDto);
 		UserLoginVo userLoginVo = adminService.login(userLoginDto);
 		return Result.success(userLoginVo);
+	}
+
+	/**
+	 *  修改登录密码
+	 */
+	@PutMapping("/{userId}/password")
+	public Result updateLoginPassword(@PathVariable Long userId, @RequestBody UserUpdatePasswordDto userUpdatePasswordDto) {
+		log.info("管理员id{}修改登录密码,{}", userId, userUpdatePasswordDto);
+		adminService.updateLoginPassword(userId,userUpdatePasswordDto);
+		return Result.success();
 	}
 }
