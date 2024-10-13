@@ -6,4 +6,6 @@ public class MessageConstant {
 	public static final String USER_NOT_LOGIN = "用户未登录！";
 	// 账户状态异常
 	public static final String USER_STATUS_UNUSUAL = "账户状态异常！";
+	// 文件上传失败
+	public static final String FILE_UPLOAD_FAILED = "文件上传失败！";
 }

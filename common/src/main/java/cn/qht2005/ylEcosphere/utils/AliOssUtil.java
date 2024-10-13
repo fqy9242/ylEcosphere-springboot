@@ -1,4 +1,5 @@
 package cn.qht2005.ylEcosphere.utils;
+import cn.qht2005.ylEcosphere.properties.AliOssProperties;
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.OSSException;
@@ -7,19 +8,22 @@ import com.aliyun.oss.common.auth.EnvironmentVariableCredentialsProvider;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Bean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.ByteArrayInputStream;
 
 @Data
 @AllArgsConstructor
 @Slf4j
+@Component
 public class AliOssUtil {
-
-    private String endpoint;
-/*    private String accessKeyId;
-    private String accessKeySecret;*/
-    private String bucketName;
+    @Autowired
+    private AliOssProperties aliOssProperties;
+//    private String endpoint;
+///*    private String accessKeyId;
+//    private String accessKeySecret;*/
+//    private String bucketName;
 
     /**
      * 文件上传
@@ -32,11 +36,12 @@ public class AliOssUtil {
         OSS ossClient = null;
         try {
             // 创建OSSClient实例。
+            // 从系统环境变量中获取accessKeyId和accessKeySecret
             EnvironmentVariableCredentialsProvider credentialsProvider = CredentialsProviderFactory.newEnvironmentVariableCredentialsProvider();
-            ossClient = new OSSClientBuilder().build(endpoint, credentialsProvider);
-            log.info("参数测试:bucketName:{},endpoint:{}", bucketName, endpoint);
+            ossClient = new OSSClientBuilder().build(aliOssProperties.getEndpoint(), credentialsProvider);
+            log.info("参数测试:bucketName:{},endpoint:{}", aliOssProperties.getBucketName(), aliOssProperties.getEndpoint());
             // 创建PutObject请求。
-            ossClient.putObject(bucketName, objectName, new ByteArrayInputStream(bytes));
+            ossClient.putObject(aliOssProperties.getBucketName(), objectName, new ByteArrayInputStream(bytes));
         } catch (OSSException oe) {
             System.out.println("Caught an OSSException, which means your request made it to OSS, "
                     + "but was rejected with an error response for some reason.");
@@ -58,9 +63,9 @@ public class AliOssUtil {
         //文件访问路径规则 https://BucketName.Endpoint/ObjectName
         StringBuilder stringBuilder = new StringBuilder("https://");
         stringBuilder
-                .append(bucketName)
+                .append(aliOssProperties.getBucketName())
                 .append(".")
-                .append(endpoint)
+                .append(getAliOssProperties().getEndpoint())
                 .append("/")
                 .append(objectName);
 
