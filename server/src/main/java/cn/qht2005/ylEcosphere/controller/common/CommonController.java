@@ -2,6 +2,7 @@ package cn.qht2005.ylEcosphere.controller.common;
 
 import cn.qht2005.ylEcosphere.constant.MessageConstant;
 import cn.qht2005.ylEcosphere.exception.BaseException;
+import cn.qht2005.ylEcosphere.result.Result;
 import cn.qht2005.ylEcosphere.utils.AliOssUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class CommonController {
 	 *  文件上传
 	 */
 	@PostMapping("/upload")
-	public String upload(MultipartFile file) {
+	public Result<String> upload(MultipartFile file) {
 		log.info("文件上传:{}", file);
 		// 获取原始文件名
 		String originalFilename = file.getOriginalFilename();
@@ -41,7 +42,7 @@ public class CommonController {
 			log.error("文件上传失败:{}", e.toString());
 			throw new BaseException(MessageConstant.FILE_UPLOAD_FAILED);
 		}
-		return url;
+		return Result.success(url);
 	}
 
 }
