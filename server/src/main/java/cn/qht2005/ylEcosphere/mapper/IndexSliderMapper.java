@@ -1,6 +1,8 @@
 package cn.qht2005.ylEcosphere.mapper;
 
+import cn.qht2005.ylEcosphere.dto.SliderPageQueryDto;
 import cn.qht2005.ylEcosphere.entry.UserIndexSlider;
+import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import java.util.List;
@@ -30,4 +32,10 @@ public interface IndexSliderMapper {
 	@Select("select * from user_index_slider order by id desc")
 	List<UserIndexSlider> selectAll();
 
+	/**
+	 *  分页查询所有轮播图列表
+	 * @param sliderPageQueryDto
+	 * @return
+	 */
+	Page<UserIndexSlider> pageQuery(SliderPageQueryDto sliderPageQueryDto);
 }

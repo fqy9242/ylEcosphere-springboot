@@ -1,8 +1,12 @@
 package cn.qht2005.ylEcosphere.service.impl;
 
+import cn.qht2005.ylEcosphere.dto.SliderPageQueryDto;
 import cn.qht2005.ylEcosphere.entry.UserIndexSlider;
 import cn.qht2005.ylEcosphere.mapper.IndexSliderMapper;
+import cn.qht2005.ylEcosphere.result.PageResult;
 import cn.qht2005.ylEcosphere.service.IndexSliderService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,13 +46,17 @@ public class IndexSliderServiceImpl implements IndexSliderService {
 	}
 
 	/**
-	 * 获取轮播图列表(所有)
+	 * 分页查询获取轮播图列表(所有)
 	 *
 	 * @return
 	 */
 	@Override
-	public List<UserIndexSlider> userGetList() {
-		List<UserIndexSlider> list = indexSliderMapper.selectAll();
-		return list;
+	public PageResult page(SliderPageQueryDto sliderPageQueryDto) {
+		// 分页查询
+		PageHelper.startPage(sliderPageQueryDto.getPage(), sliderPageQueryDto.getPageSize());
+		Page<UserIndexSlider> page = indexSliderMapper.pageQuery(sliderPageQueryDto);
+		long total = page.getTotal();
+		List<UserIndexSlider> list = page.getResult();
+		return new PageResult(total, list);
 	}
 }

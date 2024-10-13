@@ -8,10 +8,20 @@
         <set>
             <if test="title != null and title != ''">title = #{title},</if>
             <if test="photo != null and photo != ''">photo = #{photo},</if>
-            <if test="photoStatus != null">photo_status = #{photoStatus},</if>
+            <if test="photoStatus != null and photoStatus != -1">photo_status = #{photoStatus},</if>
             <if test="photoDesc != null and photoDesc != ''">photo_desc = #{photoDesc},</if>
             <if test="updateTime != null">update_time = #{updateTime},</if>
         </set>
         where id = #{id}
     </update>
+    <!--根据条件分页查询-->
+    <select id="pageQuery" resultType="cn.qht2005.ylEcosphere.entry.UserIndexSlider">
+        select * from user_index_slider
+        <where>
+            <if test="title != null and title != ''">and title like concat('%', #{title}, '%')</if>
+            <if test="photoStatus != null and photoStatus != -1">and photo_status = #{photoStatus}</if>
+            <if test="photoDesc != null and photoDesc != ''">and photo_desc like concat('%', #{photoDesc}, '%')</if>
+        </where>
+        order by update_time desc
+    </select>
 </mapper>

@@ -1,6 +1,8 @@
 package cn.qht2005.ylEcosphere.service;
 
+import cn.qht2005.ylEcosphere.dto.SliderPageQueryDto;
 import cn.qht2005.ylEcosphere.entry.UserIndexSlider;
+import cn.qht2005.ylEcosphere.result.PageResult;
 
 import java.util.List;
 
@@ -22,5 +24,5 @@ public interface IndexSliderService {
 	 *  获取轮播图列表(所有)
 	 * @return
 	 */
-	List<UserIndexSlider> userGetList();
+	PageResult page(SliderPageQueryDto sliderPageQueryDto);
 }
