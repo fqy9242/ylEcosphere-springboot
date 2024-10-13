@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.qht2005.ylEcosphere.mapper.IndexSliderMapper">
+    <!--修改轮播图信息-->
+    <update id="update">
+        update user_index_slider
+        <set>
+            <if test="title != null and title != ''">title = #{title},</if>
+            <if test="photo != null and photo != ''">photo = #{photo},</if>
+            <if test="photoStatus != null">photo_status = #{photoStatus},</if>
+            <if test="photoDesc != null and photoDesc != ''">photo_desc = #{photoDesc},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </set>
+        where id = #{id}
+    </update>
+</mapper>

@@ -1,6 +1,7 @@
 package cn.qht2005.ylEcosphere.entry;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class UserIndexSlider {
 	// 启用
 	public static final Integer  STATUS_ENABLE = 1;
