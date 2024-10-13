@@ -2,6 +2,30 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.qht2005.ylEcosphere.mapper.IndexSliderMapper">
+    <!--添加轮播图-->
+<!--    <insert id="insert">-->
+<!--        insert into user_index_slider(title, photo, photo_status, photo_desc, create_time, update_time)-->
+<!--        values(#{title}, #{photo}, #{photoStatus}, #{photoDesc}, #{createTime}, #{updateTime})-->
+<!--    </insert>-->
+    <insert id="insert">
+        insert into user_index_slider
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="title != null">title,</if>
+            <if test="photo != null">photo,</if>
+            <if test="photoStatus != null">photo_status,</if>
+            <if test="photoDesc != null">photo_desc,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="title != null">#{title},</if>
+            <if test="photo != null">#{photo},</if>
+            <if test="photoStatus != null">#{photoStatus},</if>
+            <if test="photoDesc != null">#{photoDesc},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
     <!--修改轮播图信息-->
     <update id="update">
         update user_index_slider

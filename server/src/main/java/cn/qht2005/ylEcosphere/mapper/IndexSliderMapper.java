@@ -38,4 +38,16 @@ public interface IndexSliderMapper {
 	 * @return
 	 */
 	Page<UserIndexSlider> pageQuery(SliderPageQueryDto sliderPageQueryDto);
+	/**
+	 * 根据id查询轮播图
+	 * @param id 轮播图id
+	 * @return
+	 */
+	@Select("select * from user_index_slider where id = #{id}")
+	UserIndexSlider selectById(Long id);
+	/**
+	 * 添加轮播图
+	 * @param userIndexSlider
+	 */
+	void insert(UserIndexSlider userIndexSlider);
 }

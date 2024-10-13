@@ -6,3 +6,8 @@ yl-ecosphere:
     database: yl_Ecosphere
     username: root
     password: 123456
+  aliOss:
+    endpoint: oss-cn-guangzhou.aliyuncs.com
+    bucket-name: yl-ecosphere
+    # key 和 secret 将从环境变量中获取
+    # OSS_ACCESS_KEY_ID => OSS_ACCESS_KEY_SECRET

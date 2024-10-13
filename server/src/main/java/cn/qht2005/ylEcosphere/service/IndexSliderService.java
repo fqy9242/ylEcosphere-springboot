@@ -25,4 +25,22 @@ public interface IndexSliderService {
 	 * @return
 	 */
 	PageResult page(SliderPageQueryDto sliderPageQueryDto);
+
+	/**
+	 * 根据id查询轮播图
+	 * @param id 轮播图id
+	 * @return
+	 */
+	UserIndexSlider getById(Long id);
+	/**
+	 * 添加轮播图
+	 * @param userIndexSlider
+	 */
+	void add(UserIndexSlider userIndexSlider);
+	/**
+	 * 修改轮播图
+	 * @param id
+	 * @param userIndexSlider
+	 */
+	void update(Long id, UserIndexSlider userIndexSlider);
 }

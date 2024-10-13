@@ -59,4 +59,43 @@ public class IndexSliderServiceImpl implements IndexSliderService {
 		List<UserIndexSlider> list = page.getResult();
 		return new PageResult(total, list);
 	}
+
+	/**
+	 * 根据id查询轮播图
+	 *
+	 * @param id 轮播图id
+	 * @return
+	 */
+	@Override
+	public UserIndexSlider getById(Long id) {
+		return indexSliderMapper.selectById(id);
+	}
+
+	/**
+	 * 添加轮播图
+	 *
+	 * @param userIndexSlider
+	 */
+	@Override
+	public void add(UserIndexSlider userIndexSlider) {
+		userIndexSlider.setCreateTime(LocalDateTime.now());
+		userIndexSlider.setUpdateTime(LocalDateTime.now());
+		if (userIndexSlider.getPhotoStatus() == null) {
+			userIndexSlider.setPhotoStatus(UserIndexSlider.STATUS_ENABLE);
+		}
+		indexSliderMapper.insert(userIndexSlider);
+	}
+
+	/**
+	 * 修改轮播图
+	 *
+	 * @param id
+	 * @param userIndexSlider
+	 */
+	@Override
+	public void update(Long id, UserIndexSlider userIndexSlider) {
+		userIndexSlider.setId(id);
+		userIndexSlider.setUpdateTime(LocalDateTime.now());
+		indexSliderMapper.update(userIndexSlider);
+	}
 }
