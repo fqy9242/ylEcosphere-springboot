@@ -11,6 +11,10 @@ spring:
     url: jdbc:mysql://${yl-ecosphere.datasource.host}:${yl-ecosphere.datasource.port}/${yl-ecosphere.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
     username: ${yl-ecosphere.datasource.username}
     password: ${yl-ecosphere.datasource.password}
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
 yl-ecosphere:
   jwt:
     # 设置jwt加密时所用的秘钥
