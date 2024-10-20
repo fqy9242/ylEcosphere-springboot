@@ -2,6 +2,7 @@ package cn.qht2005.ylEcosphere.controller.user;
 
 import cn.qht2005.ylEcosphere.dto.UserLoginDto;
 import cn.qht2005.ylEcosphere.dto.UserPageQueryDto;
+import cn.qht2005.ylEcosphere.dto.UserRegisterDto;
 import cn.qht2005.ylEcosphere.result.PageResult;
 import cn.qht2005.ylEcosphere.result.Result;
 import cn.qht2005.ylEcosphere.service.UserService;
@@ -37,5 +38,17 @@ public class UserController {
 		log.info("员工分页查询:{}", userPageQueryDto);
 		PageResult list = userService.pageQuery(userPageQueryDto);
 		return Result.success(list);
+	}
+
+	/**
+	 *  用户注册
+	 * @param userRegisterDto
+	 * @return
+	 */
+	@PostMapping("/register")
+	public Result register(@RequestBody UserRegisterDto userRegisterDto) {
+		log.info("用户注册:{}", userRegisterDto);
+		userService.register(userRegisterDto);
+		return Result.success();
 	}
 }

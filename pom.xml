@@ -33,6 +33,8 @@
         <pageHelper>1.4.7</pageHelper>
         <javax.activation>1.1.1</javax.activation>
         <jaxb-runtime>2.3.3</jaxb-runtime>
+
+<!--        <hutool-all>5.8.19</hutool-all>-->
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -99,6 +101,18 @@
                 <artifactId>jaxb-runtime</artifactId>
                 <version>${jaxb-runtime}</version>
             </dependency>
+            <!--邮件发送-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-mail</artifactId>
+            </dependency>
+
+            <!-- 一个很强大的工具库 -->
+<!--            <dependency>-->
+<!--                <groupId>cn.hutool</groupId>-->
+<!--                <artifactId>hutool-all</artifactId>-->
+<!--                <version>${hutool-all}</version>-->
+<!--            </dependency>-->
         </dependencies>
     </dependencyManagement>
     <build>

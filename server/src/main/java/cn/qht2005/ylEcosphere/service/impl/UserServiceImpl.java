@@ -1,8 +1,10 @@
 package cn.qht2005.ylEcosphere.service.impl;
 import cn.qht2005.ylEcosphere.constant.MessageConstant;
 import cn.qht2005.ylEcosphere.constant.UserStatusConstant;
+import cn.qht2005.ylEcosphere.constant.UserTypeConstant;
 import cn.qht2005.ylEcosphere.dto.UserLoginDto;
 import cn.qht2005.ylEcosphere.dto.UserPageQueryDto;
+import cn.qht2005.ylEcosphere.dto.UserRegisterDto;
 import cn.qht2005.ylEcosphere.entry.User;
 import cn.qht2005.ylEcosphere.exception.LoginFailedException;
 import cn.qht2005.ylEcosphere.mapper.RoleMapper;
@@ -17,6 +19,8 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
+
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -90,5 +94,25 @@ public class UserServiceImpl implements UserService {
 		user.setUserStatus(status);
 		user.setUpdateTime(LocalDateTime.now());
 		userMapper.update(user);
+	}
+
+	/**
+	 * 用户注册
+	 *
+	 * @param userRegisterDto
+	 */
+	@Override
+	public void register(UserRegisterDto userRegisterDto) {
+		User user = new User();
+		BeanUtils.copyProperties(userRegisterDto, user);
+		// 加密一下传进来的密码
+		String password = DigestUtils.md5DigestAsHex(userRegisterDto.getPassword().getBytes());
+		user.setPassword(password);
+		// 设置默认值
+		user.setCreateTime(LocalDateTime.now());
+		user.setUpdateTime(LocalDateTime.now());
+		user.setUserStatus(UserStatusConstant.NORMAL);
+		user.setRoleId(UserTypeConstant.USER);
+		userMapper.insert(user);
 	}
 }

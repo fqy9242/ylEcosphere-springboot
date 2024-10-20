@@ -2,6 +2,33 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.qht2005.ylEcosphere.mapper.UserMapper">
+    <!--添加用户-->
+    <insert id="insert">
+        insert into users
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="username != null and username != ''">username,</if>
+            <if test="password != null and password != ''">password,</if>
+            <if test="roleId != null">role_id,</if>
+            <if test="phone != null and phone != ''">phone,</if>
+            <if test="email != null and email != ''">email,</if>
+            <if test="picture != null and picture != ''">picture,</if>
+            <if test="userStatus != null">user_status,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="username != null and username != ''">#{username},</if>
+            <if test="password != null and password != ''">#{password},</if>
+            <if test="roleId != null">#{roleId},</if>
+            <if test="phone != null and phone != ''">#{phone},</if>
+            <if test="email != null and email != ''">#{email},</if>
+            <if test="picture != null and picture != ''">#{picture},</if>
+            <if test="userStatus != null">#{userStatus},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
     <!--修改用户信息-->
     <update id="update">
         update users

@@ -2,6 +2,7 @@ package cn.qht2005.ylEcosphere.service;
 
 import cn.qht2005.ylEcosphere.dto.UserLoginDto;
 import cn.qht2005.ylEcosphere.dto.UserPageQueryDto;
+import cn.qht2005.ylEcosphere.dto.UserRegisterDto;
 import cn.qht2005.ylEcosphere.result.PageResult;
 import cn.qht2005.ylEcosphere.vo.UserLoginVo;
 
@@ -26,4 +27,9 @@ public interface UserService {
 	 * @param status 将要修改成的状态 1.正常 0.封号
 	 */
 	void modifyUserStatus(Long id, Integer status);
+	/**
+	 *  用户注册
+	 * @param userRegisterDto
+	 */
+	void register(UserRegisterDto userRegisterDto);
 }
