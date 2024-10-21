@@ -43,6 +43,9 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	public UserLoginVo login(UserLoginDto userLoginDto) {
+		// 将传过来的密码加密
+		String password = DigestUtils.md5DigestAsHex(userLoginDto.getPassword().getBytes());
+		userLoginDto.setPassword(password);
 		User user = userMapper.selectByUsernameAndPassword(userLoginDto);
 		if (user == null) {
 			throw new LoginFailedException("登录失败！用户名或密码错误！");
