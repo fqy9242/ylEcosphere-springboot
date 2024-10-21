@@ -3,6 +3,7 @@ package cn.qht2005.ylEcosphere.controller.common;
 import cn.qht2005.ylEcosphere.constant.MessageConstant;
 import cn.qht2005.ylEcosphere.exception.BaseException;
 import cn.qht2005.ylEcosphere.result.Result;
+import cn.qht2005.ylEcosphere.service.EmailService;
 import cn.qht2005.ylEcosphere.utils.AliOssUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +18,13 @@ import java.util.UUID;
  * 通用接口
  */
 @RestController
-@RequestMapping("/admin/common")
+@RequestMapping("/common")
 @Slf4j
 public class CommonController {
 	@Autowired
 	private AliOssUtil aliOssUtil;
+	@Autowired
+	private EmailService emailService;
 	/**
 	 *  文件上传
 	 */
@@ -43,6 +46,12 @@ public class CommonController {
 			throw new BaseException(MessageConstant.FILE_UPLOAD_FAILED);
 		}
 		return Result.success(url);
+	}
+	@PostMapping("/sendEmailCode")
+	public Result sendEmailCode(String email) throws Exception {
+		log.info("发送邮箱验证码:{}", email);
+		emailService.sendEmailCode(email);
+		return Result.success();
 	}
 
 }
