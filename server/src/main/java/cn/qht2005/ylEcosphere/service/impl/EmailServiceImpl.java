@@ -1,15 +1,21 @@
 package cn.qht2005.ylEcosphere.service.impl;
 
+import cn.qht2005.ylEcosphere.config.RedisConfiguration;
 import cn.qht2005.ylEcosphere.service.EmailService;
 import cn.qht2005.ylEcosphere.utils.CodeUtil;
 import cn.qht2005.ylEcosphere.utils.SendEmailUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class EmailServiceImpl implements EmailService {
 	@Autowired
 	private SendEmailUtil sendEmailUtil;
+	@Autowired
+	private RedisTemplate redisTemplate;
 	@Override
 	public void sendEmailCode(String email) throws Exception {
 		// 生成6位验证码
@@ -45,7 +51,7 @@ public class EmailServiceImpl implements EmailService {
 				"                        </font>\n" +
 				"                    </h2>\n" +
 				"                    <!-- 中文 -->\n" +
-				"                    <p>您好！感谢您使用悦绿生态圈，您的账号正在进行邮箱验证，验证码为：<font color=\"#ff8c00\">{0}</font>，有效期30分钟，请尽快填写验证码完成验证！</p><br>\n" +
+				"                    <p>您好！感谢您使用悦绿生态圈，您的账号正在进行邮箱验证，验证码为：<font color=\"#ff8c00\">{0}</font>，有效期3分钟，请尽快填写验证码完成验证！</p><br>\n" +
 				"                    <!-- 英文 -->\n" +
 				"                    <h2 style=\"margin: 5px 0px; \">\n" +
 				"                        <font color=\"#333333\" style=\"line-height: 20px; \">\n" +
@@ -54,7 +60,7 @@ public class EmailServiceImpl implements EmailService {
 				"                        </font>\n" +
 				"                    </h2>\n" +
 				"                    <p>Hello! Thanks for using 悦绿生态圈, your account is being authenticated by email, the\n" +
-				"                        verification code is:<font color=\"#ff8c00\">{0}</font>, valid for 30 minutes. Please fill in the verification code as soon as\n" +
+				"                        verification code is:<font color=\"#ff8c00\">{0}</font>, valid for 3 minutes. Please fill in the verification code as soon as\n" +
 				"                        possible!</p>\n" +
 				"                    <div style=\"width:100%;margin:0 auto;\">\n" +
 				"                        <div style=\"padding:10px 10px 0;border-top:1px solid #ccc;color:#747474;margin-bottom:20px;line-height:1.3em;font-size:12px;\">\n" +
@@ -77,5 +83,7 @@ public class EmailServiceImpl implements EmailService {
 				"</html>";
 		// 发送邮件
 		sendEmailUtil.sendEmail("邮箱验证码", html.replace("{0}", code), email);
+		// 将验证码存入redis
+		redisTemplate.opsForValue().set(email, code, 3 * 60, TimeUnit.SECONDS);
 	}
 }

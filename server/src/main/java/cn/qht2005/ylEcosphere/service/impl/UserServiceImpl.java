@@ -6,6 +6,7 @@ import cn.qht2005.ylEcosphere.dto.UserLoginDto;
 import cn.qht2005.ylEcosphere.dto.UserPageQueryDto;
 import cn.qht2005.ylEcosphere.dto.UserRegisterDto;
 import cn.qht2005.ylEcosphere.entry.User;
+import cn.qht2005.ylEcosphere.exception.BaseException;
 import cn.qht2005.ylEcosphere.exception.LoginFailedException;
 import cn.qht2005.ylEcosphere.mapper.RoleMapper;
 import cn.qht2005.ylEcosphere.mapper.UserMapper;
@@ -18,6 +19,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
@@ -29,6 +31,8 @@ import java.util.Objects;
 
 @Service
 public class UserServiceImpl implements UserService {
+	@Autowired
+	private RedisTemplate redisTemplate;
 	@Autowired
 	private UserMapper userMapper;
 	@Autowired
@@ -106,7 +110,38 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	public void register(UserRegisterDto userRegisterDto) {
-		User user = new User();
+		// 判断redis中是否存在验证码 如果不存在 则表名用户未发送验证码
+		Object codeObj = redisTemplate.opsForValue().get(userRegisterDto.getEmail());
+		if (codeObj == null) {
+			throw new BaseException(MessageConstant.CODE_NOT_SEND);
+		}
+		// 校验验证码是否正确
+		String code = codeObj.toString();
+		if (!Objects.equals(code, userRegisterDto.getCode())) {
+			throw new BaseException(MessageConstant.CODE_INCORRECT);
+		}
+		// 创建一个user实体对象 用户查询数据库中的唯一字段是否存在
+		User user;
+		// 校验用户名是否重复
+		user = new User();
+		user.setUsername(userRegisterDto.getUsername());
+		if (userMapper.selectByUser(user) != null) {
+			throw new BaseException(MessageConstant.USERNAME_EXIST);
+		}
+		user = new User();
+		user.setEmail(userRegisterDto.getEmail());
+		// 校验邮箱是否重复
+		if (userMapper.selectByUser(user) != null) {
+			throw new BaseException(MessageConstant.EMAIL_EXIST);
+		}
+		user = new User();
+		user.setPhone(userRegisterDto.getPhone());
+		// 校验手机号是否重复
+		if (userMapper.selectByUser(user) != null) {
+			throw new BaseException(MessageConstant.PHONE_EXIST);
+		}
+
+		user = new User();
 		BeanUtils.copyProperties(userRegisterDto, user);
 		// 加密一下传进来的密码
 		String password = DigestUtils.md5DigestAsHex(userRegisterDto.getPassword().getBytes());

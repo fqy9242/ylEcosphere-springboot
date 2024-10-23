@@ -14,5 +14,6 @@ public class UserRegisterDto {
 	private String picture;
 	// 邮箱
 	private String email;
-//	private String code;
+	// 邮件验证码
+	private String code;
 }

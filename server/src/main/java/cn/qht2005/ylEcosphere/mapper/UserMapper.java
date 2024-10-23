@@ -42,4 +42,13 @@ public interface UserMapper {
 	 * @param user
 	 */
 	void insert(User user);
+	// 根据用户名查询用户
+	@Select("select * from users where username = #{username}")
+	User selectByUsername(String username);
+	// 根据邮箱查询用户
+	@Select("select * from users where email = #{email}")
+	User selectByEmail(String email);
+
+	// 根据用户实体对象查询用户
+	User selectByUser(User user);
 }
