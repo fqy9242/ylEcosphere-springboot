@@ -17,6 +17,7 @@ import cn.qht2005.ylEcosphere.utils.JwtUtil;
 import cn.qht2005.ylEcosphere.vo.UserLoginVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -30,6 +31,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @Service
+@Slf4j
 public class UserServiceImpl implements UserService {
 	@Autowired
 	private RedisTemplate redisTemplate;
@@ -117,7 +119,9 @@ public class UserServiceImpl implements UserService {
 		}
 		// 校验验证码是否正确
 		String code = codeObj.toString();
-		if (!Objects.equals(code, userRegisterDto.getCode())) {
+		log.info("用户注册:从redis中获取到验证码:{}", code);
+
+		if (!Objects.equals(code, userRegisterDto.getEmailCode())) {
 			throw new BaseException(MessageConstant.CODE_INCORRECT);
 		}
 		// 创建一个user实体对象 用户查询数据库中的唯一字段是否存在
@@ -134,12 +138,12 @@ public class UserServiceImpl implements UserService {
 		if (userMapper.selectByUser(user) != null) {
 			throw new BaseException(MessageConstant.EMAIL_EXIST);
 		}
-		user = new User();
+/*		user = new User();
 		user.setPhone(userRegisterDto.getPhone());
 		// 校验手机号是否重复
 		if (userMapper.selectByUser(user) != null) {
 			throw new BaseException(MessageConstant.PHONE_EXIST);
-		}
+		}*/
 
 		user = new User();
 		BeanUtils.copyProperties(userRegisterDto, user);

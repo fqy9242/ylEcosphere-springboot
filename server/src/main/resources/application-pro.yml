@@ -36,5 +36,5 @@ spring:
       "mail.smtp.starttls.required": true
   data:
     redis:
-      host: localhost
+      host: 47.236.251.52
       port: 6379

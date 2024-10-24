@@ -8,23 +8,23 @@ spring:
     # 指定邮件服务器地址
     host: smtp.qq.com
     # 登录账户
-    username: 2727676635@qq.com
+    username: ${spring.mail.username}
     # 登录密码
-    password: wsqepiivergedfhc
+    password: ${spring.mail.password}
     # 端口
-    port: 465
+    port: ${spring.mail.port}
     # 默认编码
-    default-encoding: UTF-8
+    default-encoding: ${spring.mail.default-encoding}
     # 使用的协议
-    protocol: smtps
+    protocol: ${spring.mail.protocol}
     # 其他的属性
     properties:
-      "mail.smtp.connectiontimeout": 5000
-      "mail.smtp.timeout": 3000
-      "mail.smtp.writetimeout": 5000
-      "mail.smtp.auth": true
-      "mail.smtp.starttls.enable": true
-      "mail.smtp.starttls.required": true
+      "mail.smtp.connectiontimeout": ${spring.mail.properties.mail.smtp.connectiontimeout}
+      "mail.smtp.timeout": ${spring.mail.properties.mail.smtp.timeout}
+      "mail.smtp.writetimeout": ${spring.mail.properties.mail.smtp.writetimeout}
+      "mail.smtp.auth": ${spring.mail.properties.mail.smtp.auth}
+      "mail.smtp.starttls.enable": ${spring.mail.properties.mail.smtp.starttls.enable}
+      "mail.smtp.starttls.required": ${spring.mail.properties.mail.smtp.starttls.required}
   profiles:
     active: dev
   datasource:
@@ -38,8 +38,8 @@ spring:
       max-request-size: 10MB
   data:
     redis:
-      host: localhost
-      port: 6379
+      host: ${spring.data.redis.host}
+      port: ${spring.data.redis.port}
 
 yl-ecosphere:
   jwt:
