@@ -1,5 +1,6 @@
 package cn.qht2005.ylEcosphere.service;
 
+import cn.qht2005.ylEcosphere.dto.UserFindPasswordDto;
 import cn.qht2005.ylEcosphere.dto.UserLoginDto;
 import cn.qht2005.ylEcosphere.dto.UserPageQueryDto;
 import cn.qht2005.ylEcosphere.dto.UserRegisterDto;
@@ -32,4 +33,10 @@ public interface UserService {
 	 * @param userRegisterDto
 	 */
 	void register(UserRegisterDto userRegisterDto);
+
+	/**
+	 * 找回密码
+	 * @param userRegisterDto
+	 */
+	void forgetPassword(UserFindPasswordDto userRegisterDto);
 }

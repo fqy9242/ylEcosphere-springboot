@@ -1,5 +1,6 @@
 package cn.qht2005.ylEcosphere.controller.user;
 
+import cn.qht2005.ylEcosphere.dto.UserFindPasswordDto;
 import cn.qht2005.ylEcosphere.dto.UserLoginDto;
 import cn.qht2005.ylEcosphere.dto.UserPageQueryDto;
 import cn.qht2005.ylEcosphere.dto.UserRegisterDto;
@@ -49,6 +50,12 @@ public class UserController {
 	public Result register(@RequestBody UserRegisterDto userRegisterDto) {
 		log.info("用户注册:{}", userRegisterDto);
 		userService.register(userRegisterDto);
+		return Result.success();
+	}
+	@PostMapping("/findPassword")
+	public Result forgetPassword(@RequestBody UserFindPasswordDto userRegisterDto) {
+		log.info("找回密码:{}", userRegisterDto);
+		userService.forgetPassword(userRegisterDto);
 		return Result.success();
 	}
 }

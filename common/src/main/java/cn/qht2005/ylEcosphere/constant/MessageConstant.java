@@ -18,4 +18,6 @@ public class MessageConstant {
 	public static final String EMAIL_EXIST = "邮箱已存在！";
 	// 手机号已存在
 	public static final String PHONE_EXIST = "手机号已存在！";
+	// 邮箱不正确
+	public static final String EMAIL_NOT_INCORRECT = "邮箱不正确！";
 }

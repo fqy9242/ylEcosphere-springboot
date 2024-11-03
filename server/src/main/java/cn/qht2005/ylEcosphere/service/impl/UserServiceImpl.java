@@ -2,6 +2,7 @@ package cn.qht2005.ylEcosphere.service.impl;
 import cn.qht2005.ylEcosphere.constant.MessageConstant;
 import cn.qht2005.ylEcosphere.constant.UserStatusConstant;
 import cn.qht2005.ylEcosphere.constant.UserTypeConstant;
+import cn.qht2005.ylEcosphere.dto.UserFindPasswordDto;
 import cn.qht2005.ylEcosphere.dto.UserLoginDto;
 import cn.qht2005.ylEcosphere.dto.UserPageQueryDto;
 import cn.qht2005.ylEcosphere.dto.UserRegisterDto;
@@ -157,4 +158,39 @@ public class UserServiceImpl implements UserService {
 		user.setRoleId(UserTypeConstant.USER);
 		userMapper.insert(user);
 	}
+
+	/**
+	 * 找回密码
+	 *
+	 * @param userRegisterDto
+	 */
+	@Override
+	public void forgetPassword(UserFindPasswordDto userRegisterDto) {
+		// 创建一个user实体对象 用户查询数据库中的唯一字段是否存在
+		User user = new User();
+		user.setEmail(userRegisterDto.getEmail());
+		// 校验邮箱是否正确
+		user = userMapper.selectByUser(user);
+		if (user == null) {
+			throw new BaseException(MessageConstant.EMAIL_NOT_INCORRECT);
+		}
+		// 判断redis中是否存在验证码 如果不存在 则表名用户未发送验证码
+		Object codeObj = redisTemplate.opsForValue().get(userRegisterDto.getEmail());
+		if (codeObj == null) {
+			throw new BaseException(MessageConstant.CODE_NOT_SEND);
+		}
+		// 校验验证码是否正确
+		String code = codeObj.toString();
+		log.info("找回密码:从redis中获取到验证码:{}", code);
+		if (!Objects.equals(code, userRegisterDto.getEmailCode())) {
+			throw new BaseException(MessageConstant.CODE_INCORRECT);
+		}
+		// 加密一下传进来的密码
+		String password = DigestUtils.md5DigestAsHex(userRegisterDto.getNewPassword().getBytes());
+		user.setPassword(password);
+		user.setUpdateTime(LocalDateTime.now());
+		userMapper.update(user);
+	}
+
+
 }
