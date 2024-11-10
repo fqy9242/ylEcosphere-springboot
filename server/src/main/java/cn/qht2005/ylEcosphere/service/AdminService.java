@@ -2,6 +2,7 @@ package cn.qht2005.ylEcosphere.service;
 
 import cn.qht2005.ylEcosphere.dto.UserLoginDto;
 import cn.qht2005.ylEcosphere.dto.UserUpdatePasswordDto;
+import cn.qht2005.ylEcosphere.vo.OverviewVo;
 import cn.qht2005.ylEcosphere.vo.UserLoginVo;
 
 public interface AdminService {
@@ -19,4 +20,9 @@ public interface AdminService {
 	 * @param newPassword 新密码
 	 */
 	void updateLoginPassword(Long userId, UserUpdatePasswordDto userUpdatePasswordDto);
+	/**
+	 *  获取首页数据
+	 * @return
+	 */
+	OverviewVo getOverviewData();
 }

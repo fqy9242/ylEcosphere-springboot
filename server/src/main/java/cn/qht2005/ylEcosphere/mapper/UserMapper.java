@@ -51,4 +51,7 @@ public interface UserMapper {
 
 	// 根据用户实体对象查询用户
 	User selectByUser(User user);
+	// 查询用户总数
+	@Select("select count(*) from users")
+	Long selectUserTotal();
 }

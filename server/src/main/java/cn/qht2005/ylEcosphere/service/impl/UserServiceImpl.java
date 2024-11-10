@@ -72,6 +72,7 @@ public class UserServiceImpl implements UserService {
 		userLoginVo.setRoleName(roleName);
 		BeanUtils.copyProperties(user, userLoginVo);
 		userLoginVo.setToken(token);
+		userLoginVo.setLoginTime(LocalDateTime.now());
 		return userLoginVo;
 	}
 

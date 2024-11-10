@@ -27,6 +27,8 @@ public class UserLoginVo {
 	private String picture;
 	// 账号状态
 	private UserStatusConstant status;
+	// 登录时间
+	private LocalDateTime loginTime;
 	// 创建时间
 	private LocalDateTime createTime;
 	//更新时间

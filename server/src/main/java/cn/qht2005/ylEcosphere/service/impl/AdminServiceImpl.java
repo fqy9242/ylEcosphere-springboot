@@ -12,6 +12,7 @@ import cn.qht2005.ylEcosphere.mapper.UserMapper;
 import cn.qht2005.ylEcosphere.properties.JwtProperties;
 import cn.qht2005.ylEcosphere.service.AdminService;
 import cn.qht2005.ylEcosphere.utils.JwtUtil;
+import cn.qht2005.ylEcosphere.vo.OverviewVo;
 import cn.qht2005.ylEcosphere.vo.UserLoginVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +57,7 @@ public class AdminServiceImpl implements AdminService {
 		// 封装VO对象
 		UserLoginVo userLoginVo = new UserLoginVo();
 		userLoginVo.setRoleName(roleName);
+		userLoginVo.setLoginTime(LocalDateTime.now());
 		BeanUtils.copyProperties(user, userLoginVo);
 		userLoginVo.setToken(token);
 		return userLoginVo;
@@ -88,5 +90,22 @@ public class AdminServiceImpl implements AdminService {
 		user.setUpdateTime(LocalDateTime.now());
 		// 3.调用mapper修改密码
 		userMapper.update(user);
+	}
+
+	/**
+	 * 获取首页数据
+	 *
+	 * @return
+	 */
+	@Override
+	public OverviewVo getOverviewData() {
+		// 创建一个VO对象
+		OverviewVo overviewVo = new OverviewVo();
+		// 获取用户总数
+		overviewVo.setUserTotal(userMapper.selectUserTotal());
+		// 获取日活跃用户数
+		User user = new User();
+
+		return null;
 	}
 }
