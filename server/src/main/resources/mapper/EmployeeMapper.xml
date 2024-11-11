@@ -41,6 +41,7 @@
             <if test="picture != null and picture != ''">picture = #{picture},</if>
             <if test="userStatus != null">user_status = #{userStatus},</if>
             <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="lastLoginTime != null">last_login_time = #{lastLoginTime},</if>
         </set>
         where id = #{id}
     </update>

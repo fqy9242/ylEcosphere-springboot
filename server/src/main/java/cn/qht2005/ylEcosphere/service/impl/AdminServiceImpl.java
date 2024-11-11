@@ -7,8 +7,10 @@ import cn.qht2005.ylEcosphere.entry.User;
 import cn.qht2005.ylEcosphere.exception.AccountNotExistException;
 import cn.qht2005.ylEcosphere.exception.BaseException;
 import cn.qht2005.ylEcosphere.exception.LoginFailedException;
+import cn.qht2005.ylEcosphere.mapper.FeedbackMapper;
 import cn.qht2005.ylEcosphere.mapper.RoleMapper;
 import cn.qht2005.ylEcosphere.mapper.UserMapper;
+import cn.qht2005.ylEcosphere.mapper.VolunteerMapper;
 import cn.qht2005.ylEcosphere.properties.JwtProperties;
 import cn.qht2005.ylEcosphere.service.AdminService;
 import cn.qht2005.ylEcosphere.utils.JwtUtil;
@@ -32,6 +34,10 @@ public class AdminServiceImpl implements AdminService {
 	private JwtProperties jwtProperties;
 	@Autowired
 	private RoleMapper roleMapper;
+	@Autowired
+	private VolunteerMapper volunteerMapper;
+	@Autowired
+	private FeedbackMapper feedbackMapper;
 	/**
 	 * 用户登录
 	 *
@@ -50,6 +56,9 @@ public class AdminServiceImpl implements AdminService {
 		if (! "管理员".equals(roleName)) {
 			throw new LoginFailedException("仅允许管理员登录！");
 		}
+		// 更新最近登录时间
+		user.setLastLoginTime(LocalDateTime.now());
+		userMapper.update(user);
 		Map<String, Object> claim = new HashMap<>();
 		claim.put("id", user.getUsername());
 		// 生成令牌
@@ -63,7 +72,7 @@ public class AdminServiceImpl implements AdminService {
 		return userLoginVo;
 	}
 	/**
-	 * 修改登录密爱
+	 * 修改登录密码
 	 *
 	 * @param userId 用户主键
 	 */
@@ -104,8 +113,12 @@ public class AdminServiceImpl implements AdminService {
 		// 获取用户总数
 		overviewVo.setUserTotal(userMapper.selectUserTotal());
 		// 获取日活跃用户数
-		User user = new User();
-
-		return null;
+		Long activityUserTotal = userMapper.selectByTodayLogin();
+		overviewVo.setDailyActivityUserTotal(activityUserTotal);
+		// 获取累计申请志愿者总数
+		overviewVo.setVolunteerApplicationTotal(volunteerMapper.selectVolunteerApplicationTotal());
+		// 获取反馈总数
+		overviewVo.setFeedbackTotal(feedbackMapper.selectFeedbackTotal());
+		return overviewVo;
 	}
 }

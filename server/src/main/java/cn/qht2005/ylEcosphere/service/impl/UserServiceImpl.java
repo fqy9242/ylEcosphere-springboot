@@ -61,6 +61,9 @@ public class UserServiceImpl implements UserService {
 		if (Objects.equals(user.getUserStatus(), UserStatusConstant.UNUSUAL)) {
 			throw new LoginFailedException(MessageConstant.USER_STATUS_UNUSUAL);
 		}
+		// 更新最近登录时间
+		user.setLastLoginTime(LocalDateTime.now());
+		userMapper.update(user);
 		// 获取用户类型
 		String roleName = roleMapper.selectRoleNameById(user.getRoleId());
 		Map<String, Object> claim = new HashMap<>();

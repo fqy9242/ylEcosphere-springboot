@@ -54,4 +54,7 @@ public interface UserMapper {
 	// 查询用户总数
 	@Select("select count(*) from users")
 	Long selectUserTotal();
+	// 查询今日登录用户数
+	@Select("SELECT COUNT(*) FROM users WHERE DAY(users.last_login_time) = DAY(CURRENT_DATE)")
+	Long selectByTodayLogin();
 }

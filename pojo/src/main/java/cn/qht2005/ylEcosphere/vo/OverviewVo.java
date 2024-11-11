@@ -9,7 +9,7 @@ public class OverviewVo {
 	// 日活跃用户数
 	private Long dailyActivityUserTotal;
 	// 累计志愿者
-	private Long volunteerTotal;
+	private Long volunteerApplicationTotal;
 	// 反馈数量
 	private Long feedbackTotal;
 }
