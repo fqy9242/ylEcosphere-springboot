@@ -135,6 +135,7 @@ public class AdminServiceImpl implements AdminService {
 		for (int i = 0; i < 7; i++) {
 			dates.add(LocalDate.now().minusDays(i));
 		}
+		Collections.reverse(dates);
 		// 创建一个VO对象
 		IndexChartDataVo indexChartDataVo = IndexChartDataVo.builder().dates(dates).build();
 		// 获取最近七天的注册用户数
@@ -142,9 +143,6 @@ public class AdminServiceImpl implements AdminService {
 		for (LocalDate date : dates) {
 			registerCount.add(userMapper.selectRegisterCountByDate(date));
 		}
-
-
-
 		// 封装数据到VO并返回
 		indexChartDataVo.setRegisterUserCount(registerCount);
 		return indexChartDataVo;
