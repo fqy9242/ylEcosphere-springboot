@@ -70,4 +70,10 @@ select * from users
             <if test="updateTime != null">and update_time = #{updateTime}</if>
         </where>
     </select>
+    <!--根据日期查询当日注册用户数量-->
+    <select id="selectRegisterCountByDate" resultType="java.lang.Long">
+        select count(1) from users
+        where date_format(create_time, '%Y-%m-%d') = #{date}
+    </select>
+
 </mapper>

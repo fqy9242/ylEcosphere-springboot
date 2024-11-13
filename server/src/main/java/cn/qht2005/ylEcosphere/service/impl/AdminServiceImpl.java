@@ -14,6 +14,7 @@ import cn.qht2005.ylEcosphere.mapper.VolunteerMapper;
 import cn.qht2005.ylEcosphere.properties.JwtProperties;
 import cn.qht2005.ylEcosphere.service.AdminService;
 import cn.qht2005.ylEcosphere.utils.JwtUtil;
+import cn.qht2005.ylEcosphere.vo.IndexChartDataVo;
 import cn.qht2005.ylEcosphere.vo.OverviewVo;
 import cn.qht2005.ylEcosphere.vo.UserLoginVo;
 import org.springframework.beans.BeanUtils;
@@ -21,10 +22,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -120,5 +120,33 @@ public class AdminServiceImpl implements AdminService {
 		// 获取反馈总数
 		overviewVo.setFeedbackTotal(feedbackMapper.selectFeedbackTotal());
 		return overviewVo;
+	}
+
+	/**
+	 * 返回管理端首页图表数据
+	 *
+	 * @return 图表数据
+	 */
+	@Override
+	public IndexChartDataVo getIndexChartData() {
+		// 获取最近七天注册用户数量
+		// 先获取最近七天的日期集合
+		List<LocalDate> dates = new ArrayList<>();
+		for (int i = 0; i < 7; i++) {
+			dates.add(LocalDate.now().minusDays(i));
+		}
+		// 创建一个VO对象
+		IndexChartDataVo indexChartDataVo = IndexChartDataVo.builder().dates(dates).build();
+		// 获取最近七天的注册用户数
+		List<Long> registerCount = new ArrayList<>();
+		for (LocalDate date : dates) {
+			registerCount.add(userMapper.selectRegisterCountByDate(date));
+		}
+
+
+
+		// 封装数据到VO并返回
+		indexChartDataVo.setRegisterUserCount(registerCount);
+		return indexChartDataVo;
 	}
 }

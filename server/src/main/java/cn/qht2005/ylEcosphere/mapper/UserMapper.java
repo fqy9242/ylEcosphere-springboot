@@ -7,6 +7,9 @@ import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import java.time.LocalDate;
+import java.util.List;
+
 @Mapper
 public interface UserMapper {
 	/**
@@ -57,4 +60,6 @@ public interface UserMapper {
 	// 查询今日登录用户数
 	@Select("SELECT COUNT(*) FROM users WHERE DAY(users.last_login_time) = DAY(CURRENT_DATE)")
 	Long selectByTodayLogin();
+	// 根据日期查询当日注册用户数量
+	Long selectRegisterCountByDate(LocalDate date);
 }
