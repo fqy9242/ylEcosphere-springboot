@@ -1,5 +1,6 @@
 package cn.qht2005.ylEcosphere.mapper;
 
+import cn.qht2005.ylEcosphere.dto.VolunteerApplyDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 @Mapper
@@ -10,4 +11,8 @@ public interface VolunteerMapper {
 	 */
 	@Select("select count(*) from volunteer_application")
 	Long selectVolunteerApplicationTotal();
+	/**
+	 *  插入志愿者申请
+	 */
+	void insertVolunteerApplication(VolunteerApplyDto volunteerApplyDto);
 }

@@ -2,15 +2,13 @@ package cn.qht2005.ylEcosphere.service.impl;
 import cn.qht2005.ylEcosphere.constant.MessageConstant;
 import cn.qht2005.ylEcosphere.constant.UserStatusConstant;
 import cn.qht2005.ylEcosphere.constant.UserTypeConstant;
-import cn.qht2005.ylEcosphere.dto.UserFindPasswordDto;
-import cn.qht2005.ylEcosphere.dto.UserLoginDto;
-import cn.qht2005.ylEcosphere.dto.UserPageQueryDto;
-import cn.qht2005.ylEcosphere.dto.UserRegisterDto;
+import cn.qht2005.ylEcosphere.dto.*;
 import cn.qht2005.ylEcosphere.entry.User;
 import cn.qht2005.ylEcosphere.exception.BaseException;
 import cn.qht2005.ylEcosphere.exception.LoginFailedException;
 import cn.qht2005.ylEcosphere.mapper.RoleMapper;
 import cn.qht2005.ylEcosphere.mapper.UserMapper;
+import cn.qht2005.ylEcosphere.mapper.VolunteerMapper;
 import cn.qht2005.ylEcosphere.properties.JwtProperties;
 import cn.qht2005.ylEcosphere.result.PageResult;
 import cn.qht2005.ylEcosphere.service.UserService;
@@ -42,6 +40,8 @@ public class UserServiceImpl implements UserService {
 	private JwtProperties jwtProperties;
 	@Autowired
 	private RoleMapper roleMapper;
+	@Autowired
+	private VolunteerMapper volunteerMapper;
 	/**
 	 * 用户登录
 	 *
@@ -194,6 +194,17 @@ public class UserServiceImpl implements UserService {
 		user.setPassword(password);
 		user.setUpdateTime(LocalDateTime.now());
 		userMapper.update(user);
+	}
+
+	/**
+	 * 申请志愿者
+	 *
+	 * @param volunteerApplyDto
+	 */
+	@Override
+	public void applyVolunteer(VolunteerApplyDto volunteerApplyDto) {
+		volunteerApplyDto.setCreateTime(LocalDateTime.now());
+		volunteerMapper.insertVolunteerApplication(volunteerApplyDto);
 	}
 
 

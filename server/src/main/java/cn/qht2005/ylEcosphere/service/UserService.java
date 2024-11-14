@@ -1,9 +1,6 @@
 package cn.qht2005.ylEcosphere.service;
 
-import cn.qht2005.ylEcosphere.dto.UserFindPasswordDto;
-import cn.qht2005.ylEcosphere.dto.UserLoginDto;
-import cn.qht2005.ylEcosphere.dto.UserPageQueryDto;
-import cn.qht2005.ylEcosphere.dto.UserRegisterDto;
+import cn.qht2005.ylEcosphere.dto.*;
 import cn.qht2005.ylEcosphere.result.PageResult;
 import cn.qht2005.ylEcosphere.vo.UserLoginVo;
 
@@ -39,4 +36,9 @@ public interface UserService {
 	 * @param userRegisterDto
 	 */
 	void forgetPassword(UserFindPasswordDto userRegisterDto);
+	/**
+	 * 申请志愿者
+	 * @param volunteerApplyDto
+	 */
+	void applyVolunteer(VolunteerApplyDto volunteerApplyDto);
 }
