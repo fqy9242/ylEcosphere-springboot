@@ -207,5 +207,19 @@ public class UserServiceImpl implements UserService {
 		volunteerMapper.insertVolunteerApplication(volunteerApplyDto);
 	}
 
+	/**
+	 * 志愿者申请分页查询
+	 *
+	 * @param volunteerApplyPageQueryDto
+	 * @return
+	 */
+	@Override
+	public PageResult pageForVolunteerApply(VolunteerApplyPageQueryDto volunteerApplyPageQueryDto) {
+		PageHelper.startPage(volunteerApplyPageQueryDto.getPage(), volunteerApplyPageQueryDto.getPageSize());
+		Page<VolunteerApplyDto> page = volunteerMapper.pageQueryForVolunteerApply(volunteerApplyPageQueryDto);
+		PageResult pageResult = new PageResult(page.getTotal(), page.getResult());
+ 		return pageResult;
+	}
+
 
 }

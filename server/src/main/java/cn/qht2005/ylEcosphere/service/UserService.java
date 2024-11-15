@@ -41,4 +41,11 @@ public interface UserService {
 	 * @param volunteerApplyDto
 	 */
 	void applyVolunteer(VolunteerApplyDto volunteerApplyDto);
+
+	/**
+	 * 志愿者申请分页查询
+	 * @param volunteerApplyPageQueryDto
+	 * @return
+	 */
+	PageResult pageForVolunteerApply(VolunteerApplyPageQueryDto volunteerApplyPageQueryDto);
 }

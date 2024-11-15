@@ -15,6 +15,8 @@ public class UserPageQueryDto {
 	private String phone;
 	// 用户类型id
 	private Integer roleId;
+	// 经历
+	private String experience;
 	// 页码
 	private int page;
 	// 每页记录数

@@ -30,4 +30,16 @@
             <if test="createTime != null">#{createTime},</if>
         </trim>
     </insert>
+    <!--分页查询志愿者申请-->
+    <select id="pageQueryForVolunteerApply" resultType="cn.qht2005.ylEcosphere.dto.VolunteerApplyDto">
+        select * from volunteer_application
+        <where>
+            <if test="name != null and name != ''">and name like concat('%',#{name},'%')</if>
+            <if test="email != null and email != ''">and email like concat('%',#{email},'%')</if>
+            <if test="description != null and description != ''">and description like concat('%',#{description},'%')</if>
+            <if test="experience != null and experience != ''">and experience like concat('%',#{experience},'%')</if>
+           <!-- <if test="createTime != null">and create_time between #{createTime[0]} and #{createTime[1]}</if>-->
+            <if test="applyStatus != null" >and apply_status = #{applyStatus}</if>
+        </where>
+    </select>
 </mapper>
