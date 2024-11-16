@@ -46,9 +46,18 @@ public class AdminController {
 	 *  志愿者申请分页查询
 	 */
 	@GetMapping("/volunteerApply/page")
-	public Result<PageResult> pageForVolunteerApply(@RequestBody VolunteerApplyPageQueryDto volunteerApplyPageQueryDto) {
+	public Result<PageResult> pageForVolunteerApply(VolunteerApplyPageQueryDto volunteerApplyPageQueryDto) {
 		log.info("志愿者申请分页查询:{}", volunteerApplyPageQueryDto);
 		PageResult pageResult = userService.pageForVolunteerApply(volunteerApplyPageQueryDto);
 		return Result.success(pageResult);
+	}
+	/**
+	 *  同意志愿者申请
+	 */
+	@PostMapping("/volunteerApply/audit/{status}")
+	public Result agreeApply(Long id, @PathVariable Integer status) {
+		log.info("同意志愿者申请:id->{},status->{}", id, status);
+		userService.agreeVolunteerApply(id, status);
+		return Result.success();
 	}
 }

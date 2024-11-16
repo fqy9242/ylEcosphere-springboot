@@ -2,9 +2,12 @@ package cn.qht2005.ylEcosphere.mapper;
 
 import cn.qht2005.ylEcosphere.dto.VolunteerApplyDto;
 import cn.qht2005.ylEcosphere.dto.VolunteerApplyPageQueryDto;
+import cn.qht2005.ylEcosphere.vo.VolunteerApplyVo;
 import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
+
 @Mapper
 public interface VolunteerMapper {
 	/**
@@ -22,5 +25,21 @@ public interface VolunteerMapper {
 	 * @param volunteerApplyPageQueryDto
 	 * @return
 	 */
-	Page<VolunteerApplyDto> pageQueryForVolunteerApply(VolunteerApplyPageQueryDto volunteerApplyPageQueryDto);
+	Page<VolunteerApplyVo> pageQueryForVolunteerApply(VolunteerApplyPageQueryDto volunteerApplyPageQueryDto);
+
+	/**
+	 * 通过id更新申请状态
+	 * @param id
+	 * @param i
+	 */
+	@Update("update volunteer_application set apply_status = #{i} where id = #{id}")
+	void updateApplyStatusById(Long id, int i);
+
+	/**
+	 * 通过id查询志愿者申请
+	 * @param id
+	 * @return
+	 */
+	@Select("select * from volunteer_application where id = #{id}")
+	VolunteerApplyVo selectVolunteerApplyById(Long id);
 }

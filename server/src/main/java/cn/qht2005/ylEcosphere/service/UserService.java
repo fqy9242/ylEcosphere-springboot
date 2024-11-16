@@ -48,4 +48,10 @@ public interface UserService {
 	 * @return
 	 */
 	PageResult pageForVolunteerApply(VolunteerApplyPageQueryDto volunteerApplyPageQueryDto);
+
+	/**
+	 * 同意志愿者申请
+	 * @param id
+	 */
+	void agreeVolunteerApply(Long id, Integer status);
 }

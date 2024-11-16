@@ -31,7 +31,7 @@
         </trim>
     </insert>
     <!--分页查询志愿者申请-->
-    <select id="pageQueryForVolunteerApply" resultType="cn.qht2005.ylEcosphere.dto.VolunteerApplyDto">
+    <select id="pageQueryForVolunteerApply" resultType="cn.qht2005.ylEcosphere.vo.VolunteerApplyVo">
         select * from volunteer_application
         <where>
             <if test="name != null and name != ''">and name like concat('%',#{name},'%')</if>

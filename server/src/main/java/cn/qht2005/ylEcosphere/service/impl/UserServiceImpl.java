@@ -2,6 +2,7 @@ package cn.qht2005.ylEcosphere.service.impl;
 import cn.qht2005.ylEcosphere.constant.MessageConstant;
 import cn.qht2005.ylEcosphere.constant.UserStatusConstant;
 import cn.qht2005.ylEcosphere.constant.UserTypeConstant;
+import cn.qht2005.ylEcosphere.constant.VolunteerApplyStatusConstant;
 import cn.qht2005.ylEcosphere.dto.*;
 import cn.qht2005.ylEcosphere.entry.User;
 import cn.qht2005.ylEcosphere.exception.BaseException;
@@ -11,9 +12,12 @@ import cn.qht2005.ylEcosphere.mapper.UserMapper;
 import cn.qht2005.ylEcosphere.mapper.VolunteerMapper;
 import cn.qht2005.ylEcosphere.properties.JwtProperties;
 import cn.qht2005.ylEcosphere.result.PageResult;
+import cn.qht2005.ylEcosphere.service.EmailService;
 import cn.qht2005.ylEcosphere.service.UserService;
 import cn.qht2005.ylEcosphere.utils.JwtUtil;
+import cn.qht2005.ylEcosphere.utils.SendEmailUtil;
 import cn.qht2005.ylEcosphere.vo.UserLoginVo;
+import cn.qht2005.ylEcosphere.vo.VolunteerApplyVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import lombok.extern.slf4j.Slf4j;
@@ -42,6 +46,8 @@ public class UserServiceImpl implements UserService {
 	private RoleMapper roleMapper;
 	@Autowired
 	private VolunteerMapper volunteerMapper;
+	@Autowired
+	private EmailService emailService;
 	/**
 	 * 用户登录
 	 *
@@ -216,9 +222,33 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public PageResult pageForVolunteerApply(VolunteerApplyPageQueryDto volunteerApplyPageQueryDto) {
 		PageHelper.startPage(volunteerApplyPageQueryDto.getPage(), volunteerApplyPageQueryDto.getPageSize());
-		Page<VolunteerApplyDto> page = volunteerMapper.pageQueryForVolunteerApply(volunteerApplyPageQueryDto);
-		PageResult pageResult = new PageResult(page.getTotal(), page.getResult());
+		Page<VolunteerApplyVo> page = volunteerMapper.pageQueryForVolunteerApply(volunteerApplyPageQueryDto);
+		List<VolunteerApplyVo> result = page.getResult();
+		for (VolunteerApplyVo volunteerApplyVo : result) {
+			volunteerApplyVo.setAge(LocalDateTime.now().getYear() - volunteerApplyVo.getBirthday().getYear());
+		}
+		PageResult pageResult = new PageResult(page.getTotal(), result);
  		return pageResult;
+	}
+
+	/**
+	 * 同意志愿者申请
+	 *
+	 * @param id
+	 */
+	@Override
+	public void agreeVolunteerApply(Long id, Integer status) {
+		// 修改状态为已同意
+		volunteerMapper.updateApplyStatusById(id, status);
+		// 获取邮箱
+		VolunteerApplyVo volunteerApplyVo = volunteerMapper.selectVolunteerApplyById(id);
+		// 发送邮件
+		try {
+			emailService.sendAgreeOrRefuseVolunteerApply(volunteerApplyVo.getEmail(), volunteerApplyVo.getName(), VolunteerApplyStatusConstant.AGREE);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
 	}
 
 
