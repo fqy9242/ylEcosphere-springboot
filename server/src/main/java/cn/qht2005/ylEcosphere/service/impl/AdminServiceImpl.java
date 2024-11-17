@@ -143,8 +143,14 @@ public class AdminServiceImpl implements AdminService {
 		for (LocalDate date : dates) {
 			registerCount.add(userMapper.selectRegisterCountByDate(date));
 		}
+		// 获取最近七天志愿者申请数
+		List<Long> volunteerApplyCount = new ArrayList<>();
+		for (LocalDate date : dates) {
+			volunteerApplyCount.add(volunteerMapper.selectVolunteerApplyCountByDate(date));
+		}
 		// 封装数据到VO并返回
 		indexChartDataVo.setRegisterUserCount(registerCount);
+		indexChartDataVo.setApplyVolunteerCount(volunteerApplyCount);
 		return indexChartDataVo;
 	}
 }

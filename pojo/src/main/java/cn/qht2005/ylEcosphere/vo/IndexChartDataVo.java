@@ -13,4 +13,6 @@ public class IndexChartDataVo {
 	private List<LocalDate> dates;
 	// 日注册用户数
 	private List<Long> registerUserCount;
+	// 日申请志愿者数
+	private List<Long> applyVolunteerCount;
 }

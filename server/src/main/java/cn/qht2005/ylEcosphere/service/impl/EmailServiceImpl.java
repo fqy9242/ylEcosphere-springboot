@@ -104,11 +104,11 @@ public class EmailServiceImpl implements EmailService {
 				"                    <h2 style=\"margin: 5px 0px; \">\n" +
 				"                        <font color=\"#333333\" style=\"line-height: 20px; \">\n" +
 				"                            <font style=\"line-height: 22px; \" size=\"4\">\n" +
-				"                                尊敬的用户：</font>\n" +
+				"                                尊敬的{name}：</font>\n" +
 				"                        </font>\n" +
 				"                    </h2>\n" +
 				"                    <!-- 中文 -->\n" +
-				"                    <p>{name}您好！你的志愿者申请已被{status},如有疑问,请联系我们。无论如何,感谢您为绿色生态贡献一份力量!</p><br>\n" +
+				"                    <p>您好！你的志愿者申请已被{status},如有疑问,请联系我们。无论如何,感谢您为绿色生态贡献一份力量!</p><br>\n" +
 				"                    <div style=\"width:100%;margin:0 auto;\">\n" +
 				"                        <div style=\"padding:10px 10px 0;border-top:1px solid #ccc;color:#747474;margin-bottom:20px;line-height:1.3em;font-size:12px;\">\n" +
 				"                            <p>悦绿生态圈团队</p>\n" +

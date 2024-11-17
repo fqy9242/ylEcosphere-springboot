@@ -8,6 +8,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import java.time.LocalDate;
+
 @Mapper
 public interface VolunteerMapper {
 	/**
@@ -42,4 +44,12 @@ public interface VolunteerMapper {
 	 */
 	@Select("select * from volunteer_application where id = #{id}")
 	VolunteerApplyVo selectVolunteerApplyById(Long id);
+
+	/**
+	 * 查询某一天的志愿者申请数量
+	 * @param date
+	 * @return
+	 */
+	@Select("select count(*) from volunteer_application where DATE_FORMAT(create_time, '%Y-%m-%d') = #{date}")
+	Long selectVolunteerApplyCountByDate(LocalDate date);
 }
