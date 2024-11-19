@@ -37,4 +37,5 @@ public class FeedbackController {
 		feedbackService.updateFeedbackStatus(id, status);
 		return Result.success();
 	}
+
 }

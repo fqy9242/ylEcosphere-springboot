@@ -23,4 +23,9 @@ public interface FeedbackMapper {
 	List<UserFeedback> selectAll();
 	@Update("update user_feedback set feedback_status = #{status} where id = #{id}")
 	void updateStatusById(Long id, Integer status);
+	/**
+	 * 添加反馈
+	 * @param userFeedback
+	 */
+	void insert(UserFeedback userFeedback);
 }

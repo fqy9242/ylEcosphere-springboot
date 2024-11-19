@@ -4,8 +4,10 @@ import cn.qht2005.ylEcosphere.dto.UserFindPasswordDto;
 import cn.qht2005.ylEcosphere.dto.UserLoginDto;
 import cn.qht2005.ylEcosphere.dto.UserPageQueryDto;
 import cn.qht2005.ylEcosphere.dto.UserRegisterDto;
+import cn.qht2005.ylEcosphere.entry.UserFeedback;
 import cn.qht2005.ylEcosphere.result.PageResult;
 import cn.qht2005.ylEcosphere.result.Result;
+import cn.qht2005.ylEcosphere.service.FeedbackService;
 import cn.qht2005.ylEcosphere.service.UserService;
 import cn.qht2005.ylEcosphere.vo.UserLoginVo;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +20,8 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private FeedbackService feedbackService;
 	/**
 	 *  用户登录
 	 * @return
@@ -56,6 +60,17 @@ public class UserController {
 	public Result forgetPassword(@RequestBody UserFindPasswordDto userRegisterDto) {
 		log.info("找回密码:{}", userRegisterDto);
 		userService.forgetPassword(userRegisterDto);
+		return Result.success();
+	}
+	/**
+	 * 添加反馈
+	 * @param userFeedback
+	 * @return
+	 */
+	@PostMapping("/feedback/add")
+	public Result add(@RequestBody UserFeedback userFeedback) {
+		log.info("添加反馈: {}", userFeedback);
+		feedbackService.addFeedback(userFeedback);
 		return Result.success();
 	}
 }

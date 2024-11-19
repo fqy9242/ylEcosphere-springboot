@@ -17,4 +17,10 @@ public interface FeedbackService {
 	 * @param status
 	 */
 	void updateFeedbackStatus(Long id, Integer status);
+
+	/**
+	 * 添加反馈
+	 * @param userFeedback
+	 */
+	void addFeedback(UserFeedback userFeedback);
 }
