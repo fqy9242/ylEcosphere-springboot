@@ -244,7 +244,7 @@ public class UserServiceImpl implements UserService {
 		VolunteerApplyVo volunteerApplyVo = volunteerMapper.selectVolunteerApplyById(id);
 		// 发送邮件
 		try {
-			emailService.sendAgreeOrRefuseVolunteerApply(volunteerApplyVo.getEmail(), volunteerApplyVo.getName(), VolunteerApplyStatusConstant.AGREE);
+			emailService.sendAgreeOrRefuseVolunteerApply(volunteerApplyVo.getEmail(), volunteerApplyVo.getName(), status == VolunteerApplyStatusConstant.AGREE_ID?VolunteerApplyStatusConstant.AGREE:VolunteerApplyStatusConstant.REFUSE);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

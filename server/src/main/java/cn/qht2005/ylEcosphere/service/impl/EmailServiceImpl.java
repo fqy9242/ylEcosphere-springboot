@@ -36,7 +36,7 @@ public class EmailServiceImpl implements EmailService {
 				"        <tbody>\n" +
 				"        <tr>\n" +
 				"            <th valign=\"middle\"\n" +
-				"                style=\"height: 25px; line-height: 25px; padding: 15px 35px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: RGB(148,0,211); background-color: RGB(148,0,211); border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;\">\n" +
+				"                style=\"height: 25px; line-height: 25px; padding: 15px 35px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #00796b; background-color: #00796b; border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;\">\n" +
 				"                <font face=\"微软雅黑\" size=\"5\" style=\"color: rgb(255, 255, 255); \">悦绿生态圈</font>\n" +
 				"            </th>\n" +
 				"        </tr>\n" +
@@ -93,7 +93,7 @@ public class EmailServiceImpl implements EmailService {
 				"        <tbody>\n" +
 				"        <tr>\n" +
 				"            <th valign=\"middle\"\n" +
-				"                style=\"height: 25px; line-height: 25px; padding: 15px 35px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: RGB(148,0,211); background-color: RGB(148,0,211); border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;\">\n" +
+				"                style=\"height: 25px; line-height: 25px; padding: 15px 35px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #00796b; background-color: #00796b; border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;\">\n" +
 				"                <font face=\"微软雅黑\" size=\"5\" style=\"color: rgb(255, 255, 255); \">悦绿生态圈</font>\n" +
 				"            </th>\n" +
 				"        </tr>\n" +

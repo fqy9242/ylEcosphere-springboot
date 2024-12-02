@@ -15,7 +15,7 @@ public class RecommendedBook {
 	// 书名
 	private String bookName;
 	// 介绍，描述
-	private String description;
+	private String bookDescription;
 	// 封面
 	private String bookCover;
 	// 作者
